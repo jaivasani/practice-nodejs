@@ -19,6 +19,13 @@ app.get('/api/courses', (req, res) => {
 
 // POST Request
 app.post('/api/courses', (req, res) => {
+    // Input validation
+    if (!req.body.name || req.body.name.length < 3) {
+        // 400 Bad Request
+        res.status(400).send('Name is required and should be atlest 3 characters.');
+        return;
+    }
+
     // Creating the new object for the courses array
     const course = {
         id: courses.length + 1,

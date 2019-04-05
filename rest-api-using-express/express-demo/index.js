@@ -1,6 +1,8 @@
 const express = require('express');
 const app = express();
 
+app.use(express.json());
+
 const courses = [
     {id: 1, name: 'course1'},
     {id: 2, name: 'course2'},
@@ -15,6 +17,24 @@ app.get('/api/courses', (req, res) => {
     res.send([1, 2, 3]);
 });
 
+// POST Request
+app.post('/api/courses', (req, res) => {
+    // Creating the new object for the courses array
+    const course = {
+        id: courses.length + 1,
+        name: req.body.name
+    };
+
+    // Adding course object to courses array
+    courses.push(course);
+
+    // Sending the newly created course object to browser so user can see the new course ID
+    res.send(course);
+});
+
+
+// GET Request
+// Route with parameter
 app.get('/api/courses/:id', (req, res) => {
     // Checking if the course is present in our array
     const course = courses.find(c => c.id === parseInt(req.params.id));

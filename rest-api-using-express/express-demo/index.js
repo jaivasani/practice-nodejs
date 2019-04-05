@@ -18,18 +18,20 @@ app.get('/api/courses', (req, res) => {
     res.send(courses);
 });
 
-// POST Request
-app.post('/api/courses', (req, res) => {
+function validateCourse(course) {
     const schema = {
         name: Joi.string().min(3).required()
     };
+    return Joi.validate(course, schema);
+}
 
-    const result = Joi.validate(req.body, schema);
-
-    // Input validation
-    if (result.error) {
-        // 400 Bad Request
-        res.status(400).send(result.error.details[0].message);
+// POST Request
+app.post('/api/courses', (req, res) => {
+    // Validating and also using object destructuring property of javascript
+    const { error } = validateCourse(req.body);
+    // If invalid, return 400 - Bad Request
+    if (error) {
+        res.status(400).send(error.details[0].message);
         return;
     }
 
@@ -54,15 +56,11 @@ app.put('/api/courses/:id', (req, res) => {
     // If the course is not found, return 404 - Not Found
     if (!course) res.status(404).send('The course with the given ID was not found.');
 
-    // Validate
-    const schema = {
-        name: Joi.string().min(3).required()
-    };
-
-    const result = Joi.validate(req.body, schema);
-    // If invalid, return 400 - bad request
-    if (result.error) {
-        res.status(400).send(result.error.details[0].message);
+    // Validating and also using object destructuring property of javascript
+    const { error } = validateCourse(req.body);
+    // If invalid, return 400 - Bad Request
+    if (error) {
+        res.status(400).send(error.details[0].message);
         return;
     }
 

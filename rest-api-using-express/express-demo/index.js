@@ -25,7 +25,6 @@ app.post('/api/courses', (req, res) => {
     };
 
     const result = Joi.validate(req.body, schema);
-    console.log(result);
 
     // Input validation
     if (result.error) {

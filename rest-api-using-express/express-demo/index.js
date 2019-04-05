@@ -29,11 +29,9 @@ function validateCourse(course) {
 app.post('/api/courses', (req, res) => {
     // Validating and also using object destructuring property of javascript
     const { error } = validateCourse(req.body);
+
     // If invalid, return 400 - Bad Request
-    if (error) {
-        res.status(400).send(error.details[0].message);
-        return;
-    }
+    if (error) return res.status(400).send(error.details[0].message);
 
     // Creating the new object for the courses array
     const course = {
@@ -54,15 +52,13 @@ app.put('/api/courses/:id', (req, res) => {
     const course = courses.find(c => c.id === parseInt(req.params.id));
         
     // If the course is not found, return 404 - Not Found
-    if (!course) res.status(404).send('The course with the given ID was not found.');
+    if (!course) return res.status(404).send('The course with the given ID was not found.');
 
     // Validating and also using object destructuring property of javascript
     const { error } = validateCourse(req.body);
+    
     // If invalid, return 400 - Bad Request
-    if (error) {
-        res.status(400).send(error.details[0].message);
-        return;
-    }
+    if (error) return res.status(400).send(error.details[0].message);
 
     // Update course
     course.name = req.body.name;
@@ -78,7 +74,7 @@ app.get('/api/courses/:id', (req, res) => {
     const course = courses.find(c => c.id === parseInt(req.params.id));
     
     // If the course is not found
-    if (!course) res.status(404).send('The course with the given ID was not found.');
+    if (!course) return res.status(404).send('The course with the given ID was not found.');
 
     // If course is found then send the entire course object back to browser
     res.send(course);
@@ -90,7 +86,7 @@ app.delete('/api/courses/:id', (req, res) => {
     const course = courses.find(c => c.id === parseInt(req.params.id));
 
     // If course not found, return 404 - Not Found
-    if (!course) res.status(404).send('The course with the given ID was not found.');
+    if (!course) return res.status(404).send('The course with the given ID was not found.');
 
     // If course found then delete course
     const index = courses.indexOf(course);

@@ -80,6 +80,22 @@ app.put('/api/genres/:id', (req, res) => {
     res.send(genre);
 });
 
+// DELETE request
+app.delete('/api/genres/:id', (req, res) => {
+    // Check if genre id is in array
+    const genre = genres.find(g => g.id === parseInt(req.params.id));
+
+    // Genre not found, return error 404 - Not Found
+    if (!genre) return res.status(404).send('The genre with the given ID is not found');
+
+    // Delete genre
+    const index = genres.indexOf(genre);
+    genres.splice(index, 1);
+
+    // Return deleted genre
+    res.send(genre);
+});
+
 // PORT
 const port = process.env.PORT || 3000;
 app.listen(port, () => console.log(`Listening on port ${port}...`));

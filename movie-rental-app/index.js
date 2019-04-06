@@ -29,7 +29,7 @@ app.get('/api/genres', (req, res) => {
 
 app.get('/api/genres/:id', (req, res) => {
     // Check if genre id is in array
-    const genre = genres.find(g => (g.id === parseInt(req.params.id)));
+    const genre = genres.find(g => g.id === parseInt(req.params.id));
 
     // Genre not found, error 404
     if (!genre) return res.status(404).send('The genre with the given ID is not found');
@@ -62,7 +62,7 @@ app.post('/api/genres', (req, res) => {
 // PUT request
 app.put('/api/genres/:id', (req, res) => {
     // Check if genre id is in array
-    const genre = genres.find(g => (g.id === parseInt(req.params.id)));
+    const genre = genres.find(g => g.id === parseInt(req.params.id));
 
     // Genre not found, error 404
     if (!genre) return res.status(404).send('The genre with the given ID is not found');

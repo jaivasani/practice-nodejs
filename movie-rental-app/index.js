@@ -59,6 +59,27 @@ app.post('/api/genres', (req, res) => {
     res.send(genre);
 });
 
+// PUT request
+app.put('/api/genres/:id', (req, res) => {
+    // Check if genre id is in array
+    const genre = genres.find(g => (g.id === parseInt(req.params.id)));
+
+    // Genre not found, error 404
+    if (!genre) return res.status(404).send('The genre with the given ID is not found');
+
+    // Check if the new genre name is in valid format
+    const { error } = genreValidation(req.body);
+
+    // If error then 400 - Bad Request
+    if (error) return res.status(400).send(error.details[0].message);
+
+    // Genre name is valid so update genre name
+    genre.name = req.body.name;
+
+    // Return updated genre
+    res.send(genre);
+});
+
 // PORT
 const port = process.env.PORT || 3000;
 app.listen(port, () => console.log(`Listening on port ${port}...`));

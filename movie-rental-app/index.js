@@ -40,7 +40,7 @@ app.get('/api/genres/:id', (req, res) => {
 
 // POST Request
 app.post('/api/genres', (req, res) => {
-    // Validating the course
+    // Validating genre
     const { error } = genreValidation(req.body);
 
     // If error then 400 - Bad Request

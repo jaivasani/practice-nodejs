@@ -1,14 +1,12 @@
 console.log('Before');
-
-// User value is undefined because the value is not available yet
-const user = getUser(1); 
-
-console.log(user); // User value undefined
+getUser(1, (user) => {
+    console.log('User', user)
+});
 console.log('After');
 
-function getUser(id) {
+function getUser(id, callback) {
     setTimeout(() => {
         console.log('Reading a user from a database...');
-        return {id: id, name: 'githubUser'};
+        callback({id: id, githubUsername: 'jaivasani'});
     }, 2000);
 }

@@ -15,6 +15,17 @@ app.get('/api/genres', (req, res) => {
     res.send(genres);
 });
 
+app.get('/api/genres/:id', (req, res) => {
+    // Check if genre id is in array
+    const genre = genres.find(g => (g.id === parseInt(req.params.id)));
+
+    // Genre not found, error 404
+    if (!genre) return res.status(404).send('The genre with the given ID is not found');
+    
+    // Genre is found
+    res.send(genre);
+});
+
 // PORT
 const port = process.env.PORT || 3000;
 app.listen(port, () => console.log(`Listening on port ${port}...`));

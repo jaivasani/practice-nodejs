@@ -1,7 +1,7 @@
 const express = require('express');
 const app = express();
 
-const genre = [
+const genres = [
     {id: 1, name: 'Action'},
     {id: 2, name: 'Drama'},
     {id: 3, name: 'Comedy'}
@@ -11,8 +11,8 @@ app.get('/', (req, res) => {
     res.send('Hello world');
 });
 
-app.get('/api/genre', (req, res) => {
-    res.send(genre);
+app.get('/api/genres', (req, res) => {
+    res.send(genres);
 });
 
 // PORT

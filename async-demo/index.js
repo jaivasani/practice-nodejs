@@ -1,12 +1,10 @@
 console.log('Before');
 getUser(1, (user) => {
     // Get repositories
-    getRepositories('jaivasani', (repositories) => {
+    getRepositories(user.githubUsername, (repositories) => {
     console.log('Repos:', repositories);
     });
 });
-
-
 
 console.log('After');
 
